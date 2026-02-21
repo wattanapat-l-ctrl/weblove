@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="th">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ขอโทษนะคนดี</title>
     <style>
         body {
-            background-color: #fff0f3;
+            background-color: #ffe5ec;
             font-family: 'Tahoma', sans-serif;
             display: flex;
             justify-content: center;
@@ -14,64 +12,74 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            touch-action: manipulation;
         }
-        .container {
+        .card {
             text-align: center;
             background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 400px;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 320px;
         }
-        h1 { color: #ff4d6d; }
-        p { color: #590d22; line-height: 1.6; }
-        .buttons {
-            margin-top: 20px;
+        h1 { color: #ff4d6d; font-size: 1.5rem; }
+        p { color: #590d22; font-size: 1rem; margin-bottom: 25px; }
+        .btns {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
         button {
-            padding: 10px 25px;
-            font-size: 1rem;
+            padding: 12px 40px;
+            font-size: 1.1rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: 0.3s;
+            width: 100%;
+            transition: 0.2s;
         }
-        #yesBtn { background-color: #ff4d6d; color: white; }
-        #noBtn { background-color: #ced4da; color: #495057; position: relative; }
-        .gif { width: 150px; margin-bottom: 20px; }
+        #yes { background-color: #ff4d6d; color: white; font-weight: bold; }
+        #no { background-color: #fb6f92; color: white; position: relative; }
+        img { width: 120px; margin-bottom: 15px; border-radius: 15px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ4ZzB0bmRxdXp1eGZ4ZzB0bmRxdXp1eGZ4ZzB0bmRxdXp1JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Kitten" class="gif">
-        <h1>เค้าขอโทษน้าาาาาา 🥺</h1>
-        <p>ดีกันนะ ไม่โกรธกันแล้วนะ <br> เค้าสัญญาว่าจะตั้งใจฟังและใส่ใจให้มากขึ้น <br> **หายงอนนะคนเก่ง**</p>
+    <div class="card" id="mainCard">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ4ZzB0bmRxdXp1eGZ4ZzB0bmRxdXp1eGZ4ZzB0bmRxdXp1JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/cLS1cfxvGOPVpf9g3y/giphy.gif">
+        <h1>เค้าขอโทษนะ... 🥺</h1>
+        <p>หายงอนเค้านะคนดี <br> เดี๋ยวพาไปกินของอร่อยทุกอย่างเลย!</p>
         
-        <div class="buttons">
-            <button id="yesBtn" onclick="celebrate()">ดีกันๆ</button>
-            <button id="noBtn" onmouseover="moveButton()">ไม่หาย!</button>
+        <div class="btns">
+            <button id="yes" onclick="win()">ดีกันนะ ❤️</button>
+            <button id="no" ontouchstart="move(event)" onclick="move(event)">ไม่หาย! 😤</button>
         </div>
     </div>
 
     <script>
-        // ฟังก์ชันเมื่อกด 'ดีกัน'
-        function celebrate() {
-            alert("เย้! ขอบคุณนะ รักที่สุดเลย ❤️ เดี๋ยวพาไปกินของอร่อยนะ!");
-            document.body.innerHTML = "<div style='text-align:center; width:100%;'><h1>❤️ เจอกันนะจ๊ะที่รัก ❤️</h1><img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXpueGZ4ZzB0bmRxdXp1eGZ4ZzB0bmRxdXp1eGZ4ZzB0bmRxdXp1JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KzM1lAfJjCW3S3pCHC/giphy.gif'></div>";
-        }
-
-        // ฟังก์ชันหนีปุ่ม (กวนๆ)
-        function moveButton() {
-            const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            btn.style.position = 'absolute';
+        function move(e) {
+            e.preventDefault();
+            const btn = document.getElementById('no');
+            // สุ่มตำแหน่งใหม่ในจอ
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40) + 20;
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40) + 20;
+            
+            btn.style.position = 'fixed';
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
+            btn.style.width = 'auto'; // ให้ปุ่มหดกลับขนาดปกติเวลาลอย
+        }
+
+        function win() {
+            document.getElementById('mainCard').innerHTML = `
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXpueGZ4ZzB0bmRxdXp1eGZ4ZzB0bmRxdXp1eGZ4ZzB0bmRxdXp1JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KzM1lAfJjCW3S3pCHC/giphy.gif" style="width:200px">
+                <h1 style="color:#ff4d6d">เย้! รักที่สุดเลย ❤️</h1>
+                <p>เตรียมตัวเลย เดี๋ยวไปหาครับ!</p>
+            `;
+            // แอบมีเสียงพลุ (ถ้าเปิดลำโพง)
+            alert("สัญญานะว่าจะไม่ดื้อแล้ว! 🥰");
         }
     </script>
 </body>
